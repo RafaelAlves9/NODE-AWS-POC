@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const create_user_dto_1 = require("../dto/request/user/create-user.dto");
 const users_service_1 = require("../services/users.service");
 let UsersController = class UsersController {
@@ -40,6 +41,14 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    (0, swagger_1.ApiOperation)({ summary: 'Criar um novo usuário' }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'O usuário foi criado com sucesso.',
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Parâmetros inválidos.' }),
+    (0, swagger_1.ApiResponse)({ status: 409, description: 'E-mail já cadastrado.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
@@ -74,6 +83,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 exports.UsersController = UsersController = __decorate([
+    (0, swagger_1.ApiTags)('Users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
