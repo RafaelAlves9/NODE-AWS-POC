@@ -11,6 +11,6 @@ export declare class JwtStrategy extends JwtStrategy_base {
     validate(payload: {
         email: string;
         sub: number;
-    }): Promise<import("../../entities/user.entity").User>;
+    }): Promise<import("../../dto/response/user/user.dto").UserResponseDto>;
 }
 export {};

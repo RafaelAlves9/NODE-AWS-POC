@@ -22,10 +22,23 @@ let PrismaUsersRepository = class PrismaUsersRepository {
         return { ...newUser, password: newUser.password };
     }
     async findAll() {
-        return this.prisma.user.findMany();
+        return this.prisma.user.findMany({
+            select: {
+                id: true,
+                email: true,
+                name: true,
+            },
+        });
     }
     async findById(id) {
-        return this.prisma.user.findUnique({ where: { id } });
+        return this.prisma.user.findUnique({
+            where: { id },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+            },
+        });
     }
     async findByEmail(email) {
         return this.prisma.user.findUnique({ where: { email } });

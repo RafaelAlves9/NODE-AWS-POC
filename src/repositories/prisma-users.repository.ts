@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/dto/request/user/create-user.dto';
+import { UserResponseDto } from 'src/dto/response/user/user.dto';
 import { User } from 'src/entities/user.entity';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { IUsersRepository } from './users.repository';
@@ -13,12 +14,25 @@ export class PrismaUsersRepository implements IUsersRepository {
     return { ...newUser, password: newUser.password };
   }
 
-  async findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async findAll(): Promise<UserResponseDto[]> {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
+    });
   }
 
-  async findById(id: number): Promise<User | null> {
-    return this.prisma.user.findUnique({ where: { id } });
+  async findById(id: number): Promise<UserResponseDto | null> {
+    return this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
+    });
   }
 
   async findByEmail(email: string): Promise<User | null> {

@@ -9,8 +9,9 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiOkResponse } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/dto/request/user/create-user.dto';
+import { UserResponseDto } from 'src/dto/response/user/user.dto';
 import { UsersService } from 'src/services/users.service';
 
 @ApiTags('Users')
@@ -32,11 +33,22 @@ export class UsersController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Listar todos os usuários' })
+  @ApiOkResponse({
+    description: 'Lista de usuários retornada com sucesso.',
+    type: [UserResponseDto],
+  })
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Buscar um usuário pelo ID' })
+  @ApiOkResponse({
+    description: 'Usuário retornado com sucesso.',
+    type: UserResponseDto,
+  })
+  @ApiResponse({ status: 404, description: 'Usuário não encontrado.' })
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }

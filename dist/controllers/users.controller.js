@@ -16,6 +16,7 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const create_user_dto_1 = require("../dto/request/user/create-user.dto");
+const user_dto_1 = require("../dto/response/user/user.dto");
 const users_service_1 = require("../services/users.service");
 let UsersController = class UsersController {
     usersService;
@@ -56,12 +57,23 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Listar todos os usuários' }),
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Lista de usuários retornada com sucesso.',
+        type: [user_dto_1.UserResponseDto],
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Buscar um usuário pelo ID' }),
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Usuário retornado com sucesso.',
+        type: user_dto_1.UserResponseDto,
+    }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Usuário não encontrado.' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
