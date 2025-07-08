@@ -13,6 +13,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "docker:build": "docker build -t node-aws-poc .",
+    "docker:run": "docker run -p 3000:3000 node-aws-poc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
