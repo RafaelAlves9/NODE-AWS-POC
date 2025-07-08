@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Node AWS POC')
-    .setDescription('API para o PoC de Node com AWS')
+    .setDescription('API para o PoC de Node com AWS!')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
